@@ -11,6 +11,31 @@ const JUMPER2_P = 1.375;
 const JUMPER3_P = 1.507;
 const JUMPER4_P = 1.957;
 
+export function isCGinSMALimits(mass, gc) {
+    // suurin gc taulukossa
+    if (gc > 1.17) {
+        return false;
+    }
+
+    // suurin paino taulukossa
+    if (mass > 1338) {
+        return false;
+    }
+
+    const bottomLimit = 0.92 + 0.08 * (mass - 1040) / (1338 - 1040);
+
+    if (mass > 1040 && mass <= 1338) {
+        // console.log("LIMIT", gc, ">", bottomLimit);
+        return gc > bottomLimit;
+    }
+
+    if (mass <= 1040) {
+        return gc > 0.92;
+    }
+
+    throw new Error("programmer error :)");
+}
+
 export default function calculate(
     {
         fuel = 0, // tankattu JET A litroissa

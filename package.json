@@ -15,6 +15,7 @@
     "eslint": "^3.15.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.10.0",
+    "jest": "^18.1.0",
     "lean-redux": "^3.1.0",
     "lodash": "^4.17.4",
     "prettier": "^0.18.0",
