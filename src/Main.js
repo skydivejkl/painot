@@ -8,12 +8,10 @@ import Touchable from "./Touchable";
 import TopNav from "./TopNav";
 import InputConnect from "./InputConnect";
 import {Text, Input, Sep} from "./core";
-import * as c from "./colors";
 
 css.global("body, html", {
     padding: 0,
     margin: 0,
-    backgroundColor: c.shade2,
 });
 
 const Container = simple(View, {
@@ -22,14 +20,12 @@ const Container = simple(View, {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: c.shade4,
     alignItems: "center",
     // justifyContent: "center",
 });
 
 const Wrap = simple(View, {
     padding: 20,
-    backgroundColor: c.shade2,
     flex: 1,
     "@media (min-width: 400px)": {
         borderLeft: "1px solid black",
@@ -43,7 +39,6 @@ const Title = simple(Text, {
     overflow: "hidden",
     textAlign: "center",
     fontWeight: "bold",
-    color: c.shade3,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -101,7 +96,11 @@ const Main = () => (
     <Container>
         <Wrap>
 
-            <Route exact path="/" render={() => <Redirect to="/pilotti" />} />
+            <Route
+                exact
+                path="/"
+                render={() => <Redirect to={"/" + inputs[0].name} />}
+            />
 
             {inputs.map((item, index, array) => (
                 <Route

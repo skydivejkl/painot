@@ -1,8 +1,6 @@
 import React from "react";
 import simple, {View} from "react-simple";
 
-import * as c from "./colors";
-
 export const Text = simple(View, {
     fontFamily: "helvetica",
 });
@@ -57,4 +55,3 @@ export const Sep = simple(View, {
     width: 10,
     height: 10,
 });
-

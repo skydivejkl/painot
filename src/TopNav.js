@@ -4,7 +4,6 @@ import simple, {View} from "react-simple";
 
 import Touchable from "./Touchable";
 import {Text, Sep} from "./core";
-import * as c from "./colors";
 
 const FlexTouchable = simple(Touchable, {
     flex: 1,
