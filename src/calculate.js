@@ -11,26 +11,33 @@ const JUMPER2_P = 1.375;
 const JUMPER3_P = 1.507;
 const JUMPER4_P = 1.957;
 
+// Taulukon arvot
+// https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png
+const MAX_GC = 1.17;
+const MAX_MASS = 1338;
+const SLOPE_START = 1040;
+const SLOPE = 0.08;
+const MIN_GC = 0.92;
+
 export function isCGinSMALimits(mass, gc) {
     // suurin gc taulukossa
-    if (gc > 1.17) {
+    if (gc > MAX_GC) {
         return false;
     }
 
     // suurin paino taulukossa
-    if (mass > 1338) {
+    if (mass > MAX_MASS) {
         return false;
     }
 
-    const bottomLimit = 0.92 + 0.08 * (mass - 1040) / (1338 - 1040);
-
-    if (mass > 1040 && mass <= 1338) {
-        // console.log("LIMIT", gc, ">", bottomLimit);
+    if (mass > SLOPE_START && mass <= MAX_MASS) {
+        const bottomLimit = MIN_GC +
+            SLOPE * (mass - SLOPE_START) / (MAX_MASS - SLOPE_START);
         return gc > bottomLimit;
     }
 
-    if (mass <= 1040) {
-        return gc > 0.92;
+    if (mass <= SLOPE_START) {
+        return gc > MIN_GC;
     }
 
     throw new Error("programmer error :)");
