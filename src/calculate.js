@@ -2,7 +2,7 @@ const JET_A = 0.804; // JET A tiheys per litra
 const MTOW = 1338; // CHQ maksimi lentoonlähtö paino (kg)
 const PLANE = 831; // CHQ kuivapaino (kg)
 
-// Momentti kertoimet
+// Momenttikertoimet
 const FUEL_P = 1.22;
 const PILOT_P = 0.932;
 const JUMPER1_P = 0.949;
