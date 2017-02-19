@@ -1,14 +1,16 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {Route} from "react-router-dom";
-import {get, omit, last} from "lodash/fp";
+import {get, omit, last, mapValues} from "lodash/fp";
 import {compose, withHandlers, mapProps} from "recompose";
 
 import Touchable from "./Touchable";
 import TopNav from "./TopNav";
 import InputConnect from "./InputConnect";
 import {Text, Input, Sep} from "./core";
+import calculate from "./calculate";
 
 css.global("body, html", {
     padding: 0,
@@ -30,6 +32,7 @@ const Wrap = simple(View, {
     padding: 20,
     flex: 1,
     width: "100%",
+    overflowX: "auto",
     "@media (min-width: 450px)": {
         width: 450,
     },
@@ -48,7 +51,7 @@ const Title = simple(Text, {
 
 const Description = simple(Text, {
     textAlign: "center",
-    color: "silver",
+    color: "black",
     fontSize: 12,
 });
 
@@ -58,7 +61,7 @@ var NumInput = props => (
         type="number"
         pattern="[0-9]*"
         inputMode="numeric"
-        scope="paino"
+        scope="painot"
         {...props}
     />
 );
@@ -100,30 +103,30 @@ const inputs = [
     {
         name: "polttoaine",
         title: "Polttoaine",
-        description: "Tankattu polttoaine litroissa",
+        description: "Tankattu JET A litroissa",
     },
     {name: "pilotti", title: "Pilotti", description: "Lentäjän paino (kg)"},
     {
         name: "hyppaaja1",
         title: '"Mesun paikka"',
-        description: "ns. mesun paikalla olevan hyppääjän paino joka on selkä menosuuntaan. (kg)",
+        description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
     },
     {
         name: "hyppaaja2",
         title: "Ovella",
-        description: "Oven vieressä oleva hyppääjä, jossa ensimmäisenä lähtevä oppilas yleensä istuu (kg)",
+        description: "Oven vieressä istuva hyppääjä jolla on naama menosuuntaan (kg)",
     },
     {
         name: "hyppaaja3",
         title: "Pilotin penkin takana",
-        description: "Lentäjän penkin takana istuva hyppääjä (kg)",
+        description: "Lentäjän penkin takana istuva hyppääjän exit paino (kg)",
     },
     {
         name: "hyppaaja4",
         title: "Perällä",
         next: "/tulos",
         nextText: "Tulokset",
-        description: "Takimmainen hyppääjä koneessa (kg)",
+        description: "Ihan perällä istuva hyppääjä exit paino (kg)",
     },
 ];
 
@@ -153,17 +156,41 @@ const Form = ({back, next, nextText, title, name, description}) => (
     </Flex>
 );
 
+const TotalText = simple(Text, {
+    textAlign: "center",
+    fontSize: 19,
+});
 
-const Results = () => (
+const ResultText = simple(Text, {
+    fontSize: 25,
+    textAlign: "center",
+    fontWeight: "bold",
+});
+
+const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
+
+var Results = ({cargo, mtow, plane}) => (
     <Flex>
         <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
 
         <Title>Tulokset</Title>
 
-        <Description>
-            lalalaa
-        </Description>
+        <TotalText>Pokan kuorma on </TotalText>
+
+        <Sep />
+
+        <ResultText>{cargo.toFixed(2)} kg</ResultText>
+
+        <Sep />
+
+        <TotalText>Tilaa on</TotalText>
+
+        <ResultText>{(mtow - (plane + cargo)).toFixed(2)} kg</ResultText>
+
     </Flex>
+);
+Results = connect(state => calculate(mapObValuesToFloats(state.painot)))(
+    Results,
 );
 
 const fromRoot = s => s ? "/" + s : null;
