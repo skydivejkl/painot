@@ -2,7 +2,7 @@ import React from "react";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {Route} from "react-router-dom";
-import {getOr, omit} from "lodash/fp";
+import {get, omit, last} from "lodash/fp";
 import {compose, withHandlers, mapProps} from "recompose";
 
 import Touchable from "./Touchable";
@@ -22,13 +22,14 @@ const Container = simple(View, {
     right: 0,
     bottom: 0,
     alignItems: "center",
-    // justifyContent: "center",
 });
 
 const Wrap = simple(View, {
     padding: 20,
     flex: 1,
+    width: "100%",
     "@media (min-width: 400px)": {
+        width: 400,
         borderLeft: "1px solid black",
         borderRight: "1px solid black",
     },
@@ -126,8 +127,12 @@ const inputs = [
     },
 ];
 
+const Flex = simple(View, {
+    flex: 1,
+});
+
 const Form = ({back, next, nextText, title, name, description}) => (
-    <View>
+    <Flex>
         <TopNav back={back} nextText={nextText} next={next} />
 
         <Title>{title}</Title>
@@ -145,8 +150,22 @@ const Form = ({back, next, nextText, title, name, description}) => (
         <Description>
             {description}
         </Description>
-    </View>
+    </Flex>
 );
+
+const Results = () => (
+    <Flex>
+        <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
+
+        <Title>Tulokset</Title>
+
+        <Description>
+            lalalaa
+        </Description>
+    </Flex>
+);
+
+const fromRoot = s => s ? "/" + s : null;
 
 const Main = () => (
     <Container>
@@ -160,8 +179,8 @@ const Main = () => (
 
             {inputs.map((item, index, array) => {
                 const next = item.next ||
-                    "/" + getOr("", [index + 1, "name"], array);
-                const back = "/" + getOr("", [index - 1, "name"], array);
+                    fromRoot(get([index + 1, "name"], array));
+                const back = fromRoot(get([index - 1, "name"], array));
                 return (
                     <Route
                         key={item.name}
@@ -172,6 +191,8 @@ const Main = () => (
                     />
                 );
             })}
+
+            <Route path="/tulos" component={Results} />
         </Wrap>
     </Container>
 );

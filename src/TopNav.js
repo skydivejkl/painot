@@ -30,9 +30,13 @@ const Container = simple(View, {
     flexDirection: "row",
 });
 
+const Flex = simple(View, {
+    flex: 1,
+});
+
 const TopNav = ({back, next, nextText}) => (
     <Container>
-        <TopLink to={back || "/"}>Edellinen</TopLink>
+        {back ? <TopLink to={back}>Edellinen</TopLink> : <Flex />}
         <Sep />
         <TopLink to={next || "/"}>{nextText || "Seuraava"}</TopLink>
     </Container>
