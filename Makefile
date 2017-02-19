@@ -15,7 +15,7 @@ server:
 	python -m SimpleHTTPServer 8080
 
 js-server:
-	webpack-dev-server -d --progress --inline --port 8080
+	webpack-dev-server -d --progress --inline --port 8080 --host 0.0.0.0
 	
 dist-changes-hide:
 	git update-index --assume-unchanged $(bundle)
