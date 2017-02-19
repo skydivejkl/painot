@@ -10,7 +10,7 @@ import Touchable from "./Touchable";
 import TopNav from "./TopNav";
 import InputConnect from "./InputConnect";
 import {Text, Input, Sep, Button} from "./core";
-import calculate from "./calculate";
+import calculate, {dataInputs} from "./calculate";
 
 css.global("body, html", {
     padding: 0,
@@ -98,37 +98,6 @@ NumInput = compose(
     mapProps(omitRouterProps),
 )(NumInput);
 
-const inputs = [
-    {
-        name: "fuel",
-        title: "Polttoaine",
-        description: "Tankattu JET A litroissa",
-    },
-    {name: "pilot", title: "Pilotti", description: "Lentäjän paino (kg)"},
-    {
-        name: "jumper1",
-        title: '"Mesun paikka"',
-        description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
-    },
-    {
-        name: "jumper2",
-        title: "Ovella",
-        description: "Oven vieressä istuva hyppääjä jolla on naama menosuuntaan (kg)",
-    },
-    {
-        name: "jumper3",
-        title: "Pilotin penkin takana",
-        description: "Lentäjän penkin takana istuva hyppääjän exit paino (kg)",
-    },
-    {
-        name: "jumper4",
-        title: "Perällä",
-        next: "/tulos",
-        nextText: "Tulokset",
-        description: "Ihan perällä istuva hyppääjän exit paino (kg)",
-    },
-];
-
 const Flex = simple(View, {
     flex: 1,
 });
@@ -208,7 +177,11 @@ const Zoom = simple(Button.create("a"), {
 
 var Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
     <Flex>
-        <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
+        <TopNav
+            back={fromRoot(last(dataInputs).name)}
+            next="/"
+            nextText="Alkuun"
+        />
         <Scroll>
 
             <Title>Tulokset</Title>
@@ -268,10 +241,10 @@ const Main = () => (
             <Route
                 exact
                 path="/"
-                render={() => <Redirect to={"/" + inputs[0].name} />}
+                render={() => <Redirect to={"/" + dataInputs[0].name} />}
             />
 
-            {inputs.map((item, index, array) => {
+            {dataInputs.map((item, index, array) => {
                 const next = item.next ||
                     fromRoot(get([index + 1, "name"], array));
                 const back = fromRoot(get([index - 1, "name"], array));

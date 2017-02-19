@@ -19,6 +19,41 @@ const SLOPE_START = 1040;
 const SLOPE = 0.08;
 const MIN_GC = 0.92;
 
+export const dataInputs = [
+    {
+        name: "fuel",
+        title: "JET A",
+        description: "Tankattu JET A litroissa",
+    },
+    {
+        name: "pilot",
+        title: "pilotti",
+        description: "Pilotin paino pelastusvarjoineen (kg)",
+    },
+    {
+        name: "jumper1",
+        title: '"mesun paikalla"',
+        description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
+    },
+    {
+        name: "jumper2",
+        title: "ovella",
+        description: "Oven vieressä istuva hyppääjä exit paino jolla on naama menosuuntaan (kg)",
+    },
+    {
+        name: "jumper3",
+        title: "pilotin penkin takana",
+        description: "Pilotin penkin takana istuva hyppääjän exit paino (kg)",
+    },
+    {
+        name: "jumper4",
+        title: "perällä",
+        next: "/tulos",
+        nextText: "Tulokset",
+        description: "Ihan perällä istuva hyppääjän exit paino (kg)",
+    },
+];
+
 export function isCGinSMALimits(mass, gc) {
     // suurin gc taulukossa
     if (gc > MAX_GC) {
