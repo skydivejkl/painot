@@ -101,28 +101,28 @@ NumInput = compose(
 
 const inputs = [
     {
-        name: "polttoaine",
+        name: "fuel",
         title: "Polttoaine",
         description: "Tankattu JET A litroissa",
     },
-    {name: "pilotti", title: "Pilotti", description: "Lentäjän paino (kg)"},
+    {name: "pilot", title: "Pilotti", description: "Lentäjän paino (kg)"},
     {
-        name: "hyppaaja1",
+        name: "jumper1",
         title: '"Mesun paikka"',
         description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
     },
     {
-        name: "hyppaaja2",
+        name: "jumper2",
         title: "Ovella",
         description: "Oven vieressä istuva hyppääjä jolla on naama menosuuntaan (kg)",
     },
     {
-        name: "hyppaaja3",
+        name: "jumper3",
         title: "Pilotin penkin takana",
         description: "Lentäjän penkin takana istuva hyppääjän exit paino (kg)",
     },
     {
-        name: "hyppaaja4",
+        name: "jumper4",
         title: "Perällä",
         next: "/tulos",
         nextText: "Tulokset",
@@ -163,7 +163,8 @@ const TotalText = simple(Text, {
 
 const ResultText = simple(Text, {
     fontSize: 25,
-    textAlign: "center",
+    width: 150,
+    // textAlign: "center",
     fontWeight: "bold",
 });
 
