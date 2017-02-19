@@ -1,6 +1,7 @@
 const JET_A = 0.804; // JET A tiheys
 const MTOW = 1338; // CHQ suurin lentoonlähtöpaino (kg)
-const PLANE = 831; // CHQ kuivapaino (kg)
+const PLANE = 839; // CHQ kuivapaino (kg)
+const PLANE_MOMENT = 800; // CHQ perusmomentti (EI TARKASTETTU punnitustodistuksesta)
 
 // Momenttikertoimet
 const FUEL_P = 1.22;
@@ -12,8 +13,8 @@ const JUMPER4_P = 1.957;
 
 export default function calculate(
     {
-        pilot = 0, // kg
         fuel = 0, // tankattu JET A litroissa
+        pilot = 0, // kg
         jumper1 = 0, // kg
         jumper2 = 0, // kg
         jumper3 = 0, // kg
@@ -29,9 +30,13 @@ export default function calculate(
         jumper3 * JUMPER3_P +
         jumper4 * JUMPER4_P;
 
+    // center of gravity
+    var gc = (PLANE_MOMENT + cargoMoment) / (PLANE + cargo);
+
     return {
         cargo: cargo,
+        total: PLANE + cargo,
         spare: MTOW - (PLANE + cargo),
-        spareMoment: MTOW - (PLANE + cargoMoment),
+        gc: gc,
     };
 }

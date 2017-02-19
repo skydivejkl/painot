@@ -172,31 +172,39 @@ const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 const Row = simple(View, {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
 });
 
-var Results = ({cargo, spare, spareMoment}) => (
+var Results = ({cargo, spare, total, gc}) => (
     <Flex>
         <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
 
         <Title>Tulokset</Title>
 
         <Row>
-            <TotalText>Pokan kuorma</TotalText>
+            <TotalText>Kuorma</TotalText>
             <ResultText>{cargo.toFixed(2)} kg</ResultText>
         </Row>
 
         <Sep />
 
         <Row>
-            <TotalText>Tilaa</TotalText>
+            <TotalText>Kokonaispaino</TotalText>
+            <ResultText>{total.toFixed(2)} kg</ResultText>
+        </Row>
+
+        <Sep />
+
+        <Row>
+            <TotalText>Vapaa</TotalText>
             <ResultText>{spare.toFixed(2)} kg</ResultText>
         </Row>
 
         <Sep />
 
         <Row>
-            <TotalText>Momentti</TotalText>
-            <ResultText>{spareMoment.toFixed(2)} kg</ResultText>
+            <TotalText>Massakeskipiste</TotalText>
+            <ResultText>{gc.toFixed(3)} m</ResultText>
         </Row>
 
     </Flex>
