@@ -1,5 +1,5 @@
 const JET_A = 0.804; // JET A tiheys
-const MTOW = 1338; // CHQ maksimi lentoonlähtö paino (kg)
+const MTOW = 1338; // CHQ suurin lentoonlähtöpaino (kg)
 const PLANE = 831; // CHQ kuivapaino (kg)
 
 // Momenttikertoimet
