@@ -1,8 +1,9 @@
 import React from "react";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {Route} from "react-router-dom";
-import {getOr} from "lodash/fp";
+import {getOr, omit} from "lodash/fp";
+import {compose, withHandlers, mapProps} from "recompose";
 
 import Touchable from "./Touchable";
 import TopNav from "./TopNav";
@@ -61,6 +62,39 @@ var NumInput = props => (
     />
 );
 
+const omitRouterProps = omit([
+    "nextNavigate",
+    "backNavigate",
+    "length",
+    "location",
+    "createHref",
+    "push",
+    "replace",
+    "go",
+    "goBack",
+    "goForward",
+    "block",
+    "listen",
+    "match",
+]);
+NumInput = compose(
+    withRouter,
+    withHandlers({
+        onKeyDown: props => e => {
+            if (e.key === "Enter" || e.key === "Tab") {
+                e.preventDefault();
+                props.push(props.nextNavigate);
+            }
+
+            if (e.shiftKey && e.key === "Tab") {
+                e.preventDefault();
+                props.push(props.backNavigate);
+            }
+        },
+    }),
+    mapProps(omitRouterProps),
+)(NumInput);
+
 const inputs = [
     {
         name: "polttoaine",
@@ -92,6 +126,28 @@ const inputs = [
     },
 ];
 
+const Form = ({back, next, nextText, title, name, description}) => (
+    <View>
+        <TopNav back={back} nextText={nextText} next={next} />
+
+        <Title>{title}</Title>
+
+        <NumInput
+            autoFocus
+            name={name}
+            placeholder="0"
+            nextNavigate={next}
+            backNavigate={back}
+        />
+
+        <Sep />
+
+        <Description>
+            {description}
+        </Description>
+    </View>
+);
+
 const Main = () => (
     <Container>
         <Wrap>
@@ -102,38 +158,20 @@ const Main = () => (
                 render={() => <Redirect to={"/" + inputs[0].name} />}
             />
 
-            {inputs.map((item, index, array) => (
-                <Route
-                    key={item.name}
-                    path={"/" + item.name}
-                    render={() => (
-                        <View>
-                            <TopNav
-                                back={getOr(false, [index - 1, "name"], array)}
-                                nextText={item.nextText}
-                                next={
-                                    item.next ||
-                                        getOr(false, [index + 1, "name"], array)
-                                }
-                            />
-
-                            <Title>{item.title}</Title>
-
-                            <NumInput
-                                autoFocus
-                                name={item.name}
-                                placeholder="0"
-                            />
-
-                            <Sep />
-
-                            <Description>
-                                {item.description}
-                            </Description>
-                        </View>
-                    )}
-                />
-            ))}
+            {inputs.map((item, index, array) => {
+                const next = item.next ||
+                    "/" + getOr("", [index + 1, "name"], array);
+                const back = "/" + getOr("", [index - 1, "name"], array);
+                return (
+                    <Route
+                        key={item.name}
+                        path={"/" + item.name}
+                        render={() => (
+                            <Form {...item} next={next} back={back} />
+                        )}
+                    />
+                );
+            })}
         </Wrap>
     </Container>
 );
