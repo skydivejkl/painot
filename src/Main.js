@@ -164,7 +164,6 @@ const TotalText = simple(Text, {
 const ResultText = simple(Text, {
     fontSize: 25,
     width: 150,
-    // textAlign: "center",
     fontWeight: "bold",
 });
 
@@ -173,7 +172,6 @@ const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 const Row = simple(View, {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
 });
 
 var Results = ({cargo, spare, spareMoment}) => (
@@ -184,7 +182,6 @@ var Results = ({cargo, spare, spareMoment}) => (
 
         <Row>
             <TotalText>Pokan kuorma</TotalText>
-            <Sep />
             <ResultText>{cargo.toFixed(2)} kg</ResultText>
         </Row>
 
@@ -192,7 +189,6 @@ var Results = ({cargo, spare, spareMoment}) => (
 
         <Row>
             <TotalText>Tilaa</TotalText>
-            <Sep />
             <ResultText>{spare.toFixed(2)} kg</ResultText>
         </Row>
 
@@ -200,7 +196,6 @@ var Results = ({cargo, spare, spareMoment}) => (
 
         <Row>
             <TotalText>Momentti</TotalText>
-            <Sep />
             <ResultText>{spareMoment.toFixed(2)} kg</ResultText>
         </Row>
 
