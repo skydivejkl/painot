@@ -9,7 +9,7 @@ import {compose, withHandlers, mapProps} from "recompose";
 import Touchable from "./Touchable";
 import TopNav from "./TopNav";
 import InputConnect from "./InputConnect";
-import {Text, Input, Sep} from "./core";
+import {Text, Input, Sep, Button} from "./core";
 import calculate from "./calculate";
 
 css.global("body, html", {
@@ -29,10 +29,9 @@ const Container = simple(View, {
 
 const Wrap = simple(View, {
     backgroundColor: "white",
-    padding: 20,
     flex: 1,
     width: "100%",
-    overflowX: "auto",
+    // overflowX: "auto",
     "@media (min-width: 450px)": {
         width: 450,
     },
@@ -126,7 +125,7 @@ const inputs = [
         title: "Perällä",
         next: "/tulos",
         nextText: "Tulokset",
-        description: "Ihan perällä istuva hyppääjä exit paino (kg)",
+        description: "Ihan perällä istuva hyppääjän exit paino (kg)",
     },
 ];
 
@@ -137,22 +136,24 @@ const Flex = simple(View, {
 const Form = ({back, next, nextText, title, name, description}) => (
     <Flex>
         <TopNav back={back} nextText={nextText} next={next} />
+        <Scroll>
 
-        <Title>{title}</Title>
+            <Title>{title}</Title>
 
-        <NumInput
-            autoFocus
-            name={name}
-            placeholder="0"
-            nextNavigate={next}
-            backNavigate={back}
-        />
+            <NumInput
+                autoFocus
+                name={name}
+                placeholder="0"
+                nextNavigate={next}
+                backNavigate={back}
+            />
 
-        <Sep />
+            <Sep />
 
-        <Description>
-            {description}
-        </Description>
+            <Description>
+                {description}
+            </Description>
+        </Scroll>
     </Flex>
 );
 
@@ -161,11 +162,20 @@ const TotalText = simple(Text, {
     fontSize: 19,
 });
 
-const ResultText = simple(Text, {
-    fontSize: 25,
-    width: 150,
-    fontWeight: "bold",
-});
+const ResultText = simple(
+    Text,
+    {
+        fontSize: 25,
+        width: 150,
+        fontWeight: "bold",
+        color: "#3cd03c",
+    },
+    {
+        bad: {
+            color: "red",
+        },
+    },
+);
 
 const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 
@@ -175,38 +185,74 @@ const Row = simple(View, {
     alignItems: "center",
 });
 
-var Results = ({cargo, spare, total, gc}) => (
+const Img = simple(View.create("img"), {
+    margin: "auto",
+    marginTop: 20,
+    width: "100%",
+});
+
+const Scroll = simple(View, {
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+    overflowX: "auto",
+});
+
+const Zoom = simple(Button.create("a"), {
+    padding: 15,
+    margin: 10,
+    width: "50%",
+    fontSize: 15,
+    alignSelf: "center",
+});
+
+var Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
     <Flex>
         <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
+        <Scroll>
 
-        <Title>Tulokset</Title>
+            <Title>Tulokset</Title>
 
-        <Row>
-            <TotalText>Kuorma</TotalText>
-            <ResultText>{cargo.toFixed(2)} kg</ResultText>
-        </Row>
+            <Row>
+                <TotalText>Kuorma</TotalText>
+                <ResultText bad={total > mtow}>
+                    {cargo.toFixed(2)} kg
+                </ResultText>
+            </Row>
 
-        <Sep />
+            <Sep />
 
-        <Row>
-            <TotalText>Kokonaispaino</TotalText>
-            <ResultText>{total.toFixed(2)} kg</ResultText>
-        </Row>
+            <Row>
+                <TotalText>Kokonaispaino</TotalText>
+                <ResultText bad={mtow < total}>
+                    {total.toFixed(2)} kg
+                </ResultText>
+            </Row>
 
-        <Sep />
+            <Sep />
 
-        <Row>
-            <TotalText>Vapaa</TotalText>
-            <ResultText>{spare.toFixed(2)} kg</ResultText>
-        </Row>
+            <Row>
+                <TotalText>Vapaana</TotalText>
+                <ResultText bad={spare < 0}>{spare.toFixed(2)} kg</ResultText>
+            </Row>
 
-        <Sep />
+            <Sep />
 
-        <Row>
-            <TotalText>Massakeskipiste</TotalText>
-            <ResultText>{gc.toFixed(3)} m</ResultText>
-        </Row>
+            <Row>
+                <TotalText>Massakeskipiste</TotalText>
+                <ResultText bad={!gcOk}>{gc.toFixed(3)} m</ResultText>
+            </Row>
 
+            <Img
+                src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png"
+            />
+
+            <Zoom
+                href="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png"
+            >
+                ZOOM
+            </Zoom>
+        </Scroll>
     </Flex>
 );
 Results = connect(state => calculate(mapObValuesToFloats(state.painot)))(

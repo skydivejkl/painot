@@ -3,20 +3,14 @@ import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 
 import Touchable from "./Touchable";
-import {Text, Sep} from "./core";
+import {Text, Sep, Button} from "./core";
 
 const FlexTouchable = simple(Touchable, {
     flex: 1,
 });
 
-const FlexLink = simple(Text.create(Link), {
+const FlexLink = simple(Button.create(Link), {
     flex: 1,
-    backgroundColor: "#DDD",
-    color: "black",
-    fontSize: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    textDecoration: "none",
 });
 
 const TopLink = props => (
@@ -28,6 +22,8 @@ const TopLink = props => (
 const Container = simple(View, {
     height: 50,
     flexDirection: "row",
+    margin: 20,
+    marginBottom: 0,
 });
 
 const Flex = simple(View, {

@@ -65,10 +65,14 @@ export default function calculate(
     // center of gravity
     var gc = (PLANE_MOMENT + cargoMoment) / (PLANE + cargo);
 
+    var total = PLANE + cargo;
+
     return {
         cargo: cargo,
-        total: PLANE + cargo,
+        total: total,
         spare: MTOW - (PLANE + cargo),
+        mtow: MTOW,
         gc: gc,
+        gcOk: isCGinSMALimits(total, gc),
     };
 }
