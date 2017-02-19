@@ -2,29 +2,32 @@ const JET_A = 0.804; // JET A tiheys per litra
 const MTOW = 1338; // CHQ maksimi lentoonlähtö paino (kg)
 const PLANE = 831; // CHQ kuivapaino (kg)
 
+// Momentti kertoimet
+const FUEL_P = 1.22;
+const PILOT_P = 0.932;
+const JUMPER1_P = 0.949;
+const JUMPER2_P = 1.375;
+const JUMPER3_P = 1.507;
+const JUMPER4_P = 1.957;
+
 export default function calculate(
     {
-        pilotti = 0, // kg
-        polttoaine = 0, // litraa
-        hyppaaja1 = 0, // kg
-        hyppaaja2 = 0, // kg
-        hyppaaja3 = 0, // kg
-        hyppaaja4 = 0, // kg
+        pilot = 0, // kg
+        fuel = 0, // tankattu JET A litroissa
+        jumper1 = 0, // kg
+        jumper2 = 0, // kg
+        jumper3 = 0, // kg
+        jumper4 = 0, // kg
     },
 ) {
-    var cargo = polttoaine * JET_A +
-        pilotti +
-        hyppaaja1 +
-        hyppaaja2 +
-        hyppaaja3 +
-        hyppaaja4;
+    var cargo = fuel * JET_A + pilot + jumper1 + jumper2 + jumper3 + jumper4;
 
-    var cargoMoment = polttoaine * JET_A +
-        pilotti * 0.932 +
-        hyppaaja1 * 0.949 +
-        hyppaaja2 * 1.375 +
-        hyppaaja3 * 1.507 +
-        hyppaaja4 * 1.957;
+    var cargoMoment = fuel * JET_A * FUEL_P +
+        pilot * PILOT_P +
+        jumper1 * JUMPER1_P +
+        jumper2 * JUMPER2_P +
+        jumper3 * JUMPER3_P +
+        jumper4 * JUMPER4_P;
 
     return {
         cargo: cargo,
