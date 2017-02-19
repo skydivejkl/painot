@@ -4,12 +4,12 @@ const PLANE = 831; // CHQ kuivapaino (kg)
 
 export default function calculate(
     {
-        pilotti = 0,
-        polttoaine = 0,
-        hyppaaja1 = 0,
-        hyppaaja2 = 0,
-        hyppaaja3 = 0,
-        hyppaaja4 = 0,
+        pilotti = 0, // kg
+        polttoaine = 0, // litraa
+        hyppaaja1 = 0, // kg
+        hyppaaja2 = 0, // kg
+        hyppaaja3 = 0, // kg
+        hyppaaja4 = 0, // kg
     },
 ) {
     var cargo = polttoaine * JET_A +
