@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {Route} from "react-router-dom";
+import {getOr} from "lodash/fp";
 
 import Touchable from "./Touchable";
 import TopNav from "./TopNav";
@@ -33,7 +34,7 @@ const Title = simple(Text, {
     padding: 20,
 });
 
-const NumInput = props => (
+var NumInput = props => (
     <InputConnect
         component={Input}
         type="number"
@@ -56,22 +57,38 @@ const Pilot = () => (
     </View>
 );
 
-const Jumper1 = () => (
-    <View>
-        <TopNav back="/" next="/jumper2" />
-
-        <Title>
-            "Mesun paikka"
-        </Title>
-
-        <NumInput name="jumper1" placeholder="100 kg" />
-    </View>
-);
+const inputs = [
+    {name: "pilot", title: "Pilotin paino"},
+    {name: "jumper1", title: '"Mesun paikka"'},
+    {name: "jumper2", title: "Ovella"},
+    {name: "jumper3", title: "Pilotin penkin takana"},
+    {name: "jumper4", title: "Perällä"},
+];
 
 const Main = () => (
     <Container>
-        <Route path="/" exact component={Pilot} />
-        <Route path="/jumper1" component={Jumper1} />
+        {inputs.map((item, index, array) => (
+            <Route
+                key={item.name}
+                path={"/" + item.name}
+                render={() => (
+                    <View>
+                        <TopNav
+                            back={getOr(false, [index - 1, "name"], array)}
+                            next={getOr(false, [index + 1, "name"], array)}
+                        />
+
+                        <Title>{item.title}</Title>
+
+                        <NumInput
+                            autoFocus
+                            name={item.name}
+                            placeholder="100 kg"
+                        />
+                    </View>
+                )}
+            />
+        ))}
     </Container>
 );
 
