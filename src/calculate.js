@@ -1,6 +1,6 @@
 const JET_A = 0.804; // JET A tiheys per litra
 const MTOW = 1338; // CHQ maksimi lentoonlähtö paino (kg)
-const PLANE_WEIGHT = 831; // CHQ kuivapaino (kg)
+const PLANE = 831; // CHQ kuivapaino (kg)
 
 export default function calculate(
     {
@@ -19,7 +19,7 @@ export default function calculate(
         hyppaaja3 +
         hyppaaja4;
 
-    var cargoByPosition = polttoaine * JET_A +
+    var cargoMoment = polttoaine * JET_A +
         pilotti * 0.932 +
         hyppaaja1 * 0.949 +
         hyppaaja2 * 1.375 +
@@ -28,7 +28,7 @@ export default function calculate(
 
     return {
         cargo: cargo,
-        mtow: MTOW,
-        plane: PLANE_WEIGHT,
+        spare: MTOW - (PLANE + cargo),
+        spareMoment: MTOW - (PLANE + cargoMoment),
     };
 }

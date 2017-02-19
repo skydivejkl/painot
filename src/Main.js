@@ -157,7 +157,7 @@ const Form = ({back, next, nextText, title, name, description}) => (
 );
 
 const TotalText = simple(Text, {
-    textAlign: "center",
+    width: 150,
     fontSize: 19,
 });
 
@@ -169,23 +169,39 @@ const ResultText = simple(Text, {
 
 const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 
-var Results = ({cargo, mtow, plane}) => (
+const Row = simple(View, {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+});
+
+var Results = ({cargo, spare, spareMoment}) => (
     <Flex>
         <TopNav back={fromRoot(last(inputs).name)} next="/" nextText="Alkuun" />
 
         <Title>Tulokset</Title>
 
-        <TotalText>Pokan kuorma on </TotalText>
+        <Row>
+            <TotalText>Pokan kuorma</TotalText>
+            <Sep />
+            <ResultText>{cargo.toFixed(2)} kg</ResultText>
+        </Row>
 
         <Sep />
 
-        <ResultText>{cargo.toFixed(2)} kg</ResultText>
+        <Row>
+            <TotalText>Tilaa</TotalText>
+            <Sep />
+            <ResultText>{spare.toFixed(2)} kg</ResultText>
+        </Row>
 
         <Sep />
 
-        <TotalText>Tilaa on</TotalText>
-
-        <ResultText>{(mtow - (plane + cargo)).toFixed(2)} kg</ResultText>
+        <Row>
+            <TotalText>Momentti</TotalText>
+            <Sep />
+            <ResultText>{spareMoment.toFixed(2)} kg</ResultText>
+        </Row>
 
     </Flex>
 );
