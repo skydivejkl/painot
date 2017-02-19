@@ -12,15 +12,22 @@ export default function calculate(
         hyppaaja4 = 0,
     },
 ) {
-    var kuorma = polttoaine * JET_A +
+    var cargo = polttoaine * JET_A +
         pilotti +
         hyppaaja1 +
         hyppaaja2 +
         hyppaaja3 +
         hyppaaja4;
 
+    var cargoByPosition = polttoaine * JET_A +
+        pilotti * 0.932 +
+        hyppaaja1 * 0.949 +
+        hyppaaja2 * 1.375 +
+        hyppaaja3 * 1.507 +
+        hyppaaja4 * 1.957;
+
     return {
-        cargo: kuorma,
+        cargo: cargo,
         mtow: MTOW,
         plane: PLANE_WEIGHT,
     };
