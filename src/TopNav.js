@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 
 import Touchable from "./Touchable";
-import {Text} from "./core";
+import {Text, Sep} from "./core";
 import * as c from "./colors";
 
 const FlexTouchable = simple(Touchable, {
@@ -12,8 +12,8 @@ const FlexTouchable = simple(Touchable, {
 
 const FlexLink = simple(Text.create(Link), {
     flex: 1,
-    backgroundColor: c.shade1,
-    color: c.shade4,
+    backgroundColor: "#DDD",
+    color: "black",
     fontSize: 20,
     alignItems: "center",
     justifyContent: "center",
@@ -31,10 +31,11 @@ const Container = simple(View, {
     flexDirection: "row",
 });
 
-const TopNav = ({back, next}) => (
+const TopNav = ({back, next, nextText}) => (
     <Container>
         <TopLink to={back || "/"}>Edellinen</TopLink>
-        <TopLink to={next || "/"}>Seuraava</TopLink>
+        <Sep />
+        <TopLink to={next || "/"}>{nextText || "Seuraava"}</TopLink>
     </Container>
 );
 
