@@ -1,4 +1,4 @@
-const JET_A = 0.804; // JET A tiheys per litra
+const JET_A = 0.804; // JET A tiheys
 const MTOW = 1338; // CHQ maksimi lentoonlähtö paino (kg)
 const PLANE = 831; // CHQ kuivapaino (kg)
 
