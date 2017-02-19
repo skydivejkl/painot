@@ -13,6 +13,7 @@ import {Text, Input, Sep} from "./core";
 css.global("body, html", {
     padding: 0,
     margin: 0,
+    backgroundColor: "black",
 });
 
 const Container = simple(View, {
@@ -25,13 +26,12 @@ const Container = simple(View, {
 });
 
 const Wrap = simple(View, {
+    backgroundColor: "white",
     padding: 20,
     flex: 1,
     width: "100%",
-    "@media (min-width: 400px)": {
-        width: 400,
-        borderLeft: "1px solid black",
-        borderRight: "1px solid black",
+    "@media (min-width: 450px)": {
+        width: 450,
     },
 });
 
@@ -152,6 +152,7 @@ const Form = ({back, next, nextText, title, name, description}) => (
         </Description>
     </Flex>
 );
+
 
 const Results = () => (
     <Flex>

@@ -32,7 +32,7 @@ const TouchWrap = simple(View, {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "#EFEFEF",
+    backgroundColor: "skyblue",
     animation: `${animation} 0.5s ease-in`,
     animationFillMode: "forwards",
     animationIterationCount: 1,
