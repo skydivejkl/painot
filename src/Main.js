@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
+import {Route, Redirect, Switch} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {get, omit, pick} from "lodash/fp";
 import {compose, withHandlers, mapProps} from "recompose";
@@ -121,28 +121,30 @@ const Main = () => (
     <Container>
         <Wrap>
 
-            <Route
-                exact
-                path="/"
-                render={() => <Redirect to={"/" + dataInputs[0].name} />}
-            />
+            <Switch>
 
-            {dataInputs.map((item, index, array) => {
-                const next = item.next ||
-                    fromRoot(get([index + 1, "name"], array));
-                const back = fromRoot(get([index - 1, "name"], array));
-                return (
-                    <Route
-                        key={item.name}
-                        path={"/" + item.name}
-                        render={() => (
-                            <Form {...item} next={next} back={back} />
-                        )}
-                    />
-                );
-            })}
+                {dataInputs.map((item, index, array) => {
+                    const next = item.next ||
+                        fromRoot(get([index + 1, "name"], array));
+                    const back = fromRoot(get([index - 1, "name"], array));
+                    return (
+                        <Route
+                            key={item.name}
+                            path={"/" + item.name}
+                            render={() => (
+                                <Form {...item} next={next} back={back} />
+                            )}
+                        />
+                    );
+                })}
 
-            <Route path="/tulos" component={Results} />
+                <Route path="/tulos" component={Results} />
+
+                <Route
+                    render={() => <Redirect to={"/" + dataInputs[0].name} />}
+                />
+
+            </Switch>
         </Wrap>
     </Container>
 );
