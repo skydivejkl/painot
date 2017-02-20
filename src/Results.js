@@ -53,7 +53,7 @@ const ResultText = simple(
     },
 );
 
-var Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
+export const Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
     <Flex>
         <TopNav
             back={fromRoot(last(dataInputs).name)}
@@ -106,8 +106,7 @@ var Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
         </Scroll>
     </Flex>
 );
-Results = connect(state => calculate(mapObValuesToFloats(state.painot)))(
+
+export default connect(state => calculate(mapObValuesToFloats(state.painot)))(
     Results,
 );
-
-export default Results;

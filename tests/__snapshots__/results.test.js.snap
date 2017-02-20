@@ -1,0 +1,101 @@
+exports[`test render results 1`] = `
+<div
+  className="Flex___0 css-1mobb16">
+  <div
+    className="Container___1 css-1a1kkk0">
+    <div
+      className="View___3 FlexTouchable___2 css-mfy564 css-989zum"
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}>
+      <a
+        className="FlexLink___4 css-gox86g"
+        href="/jumper4"
+        onClick={[Function]}>
+        Edellinen
+      </a>
+    </div>
+    <div
+      className="Sep___5 css-3baico" />
+    <div
+      className="View___7 FlexTouchable___6 css-mfy564 css-989zum"
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}>
+      <a
+        className="FlexLink___8 css-gox86g"
+        href="/"
+        onClick={[Function]}>
+        Alkuun
+      </a>
+    </div>
+  </div>
+  <div
+    className="Scroll___9 css-1az1c6z">
+    <div
+      className="Title___10 css-1lc423o">
+      Tulokset
+    </div>
+    <div
+      className="Row___11 css-1v992oz">
+      <div
+        className="TotalText___12 css-1afjqs1">
+        Kuorma
+      </div>
+      <div
+        className="ResultText___13 css-1ackb39">
+        485.20
+         kg
+      </div>
+    </div>
+    <div
+      className="Sep___14 css-3baico" />
+    <div
+      className="Row___15 css-1v992oz">
+      <div
+        className="TotalText___16 css-1afjqs1">
+        Kokonaispaino
+      </div>
+      <div
+        className="ResultText___17 css-1ackb39">
+        1324.18
+         kg
+      </div>
+    </div>
+    <div
+      className="Sep___18 css-3baico" />
+    <div
+      className="Row___19 css-1v992oz">
+      <div
+        className="TotalText___20 css-1afjqs1">
+        Vapaana
+      </div>
+      <div
+        className="ResultText___21 css-1ackb39">
+        13.82
+         kg
+      </div>
+    </div>
+    <div
+      className="Sep___22 css-3baico" />
+    <div
+      className="Row___23 css-1v992oz">
+      <div
+        className="TotalText___24 css-1afjqs1">
+        Massakeskipiste
+      </div>
+      <div
+        className="ResultText___25 css-1ackb39">
+        1.076
+         m
+      </div>
+    </div>
+    <img
+      className="Img___26 css-5bhlr8"
+      src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png" />
+    <a
+      className="Zoom___27 css-vpopo7"
+      href="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png">
+      ZOOM
+    </a>
+  </div>
+</div>
+`;
