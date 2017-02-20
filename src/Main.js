@@ -124,13 +124,14 @@ const Main = () => (
             <Switch>
 
                 {dataInputs.map((item, index, array) => {
-                    const next = item.next ||
-                        fromRoot(get([index + 1, "name"], array));
-                    const back = fromRoot(get([index - 1, "name"], array));
+                    const next = item.next || get([index + 1, "name"], array);
+                    const back = get([index - 1, "name"], array);
+                    console.log("back", back);
+                    console.log("next", next);
                     return (
                         <Route
                             key={item.name}
-                            path={"/" + item.name}
+                            path={"/:plane/" + item.name}
                             render={() => (
                                 <Form {...item} next={next} back={back} />
                             )}
@@ -138,7 +139,7 @@ const Main = () => (
                     );
                 })}
 
-                <Route path="/tulos" component={Results} />
+                <Route path="/:plane/tulos" component={Results} />
 
                 <Route
                     render={() => <Redirect to={"/" + dataInputs[0].name} />}

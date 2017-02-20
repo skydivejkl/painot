@@ -98,7 +98,7 @@ export const Results = (
     {cargo, spare, total, gc, gcOk, mtow, cargoItems, plane, planeMoment},
 ) => (
     <Flex>
-        <TopNav back={fromRoot(last(dataInputs).name)} />
+        <TopNav back={last(dataInputs).name} />
         <Scroll>
 
             <Title>Tulokset</Title>
@@ -142,9 +142,7 @@ export const Results = (
             {cargoItems.map(item => (
                 <Row key={item.name} small>
                     <Label2>{item.title}</Label2>
-                    <ValueLink
-                        to={{pathname: "/" + item.name, search: "?results=1"}}
-                    >
+                    <ValueLink to={{pathname: item.name, search: "?results=1"}}>
                         {
                             `${item.mass.toFixed(
                                 1,

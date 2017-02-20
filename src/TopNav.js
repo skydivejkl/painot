@@ -34,14 +34,14 @@ const BackNext = ({back, next, nextText}) => (
         {back ? <TopLink to={back}>Edellinen</TopLink> : <Flex />}
         <Sep />
         {next
-            ? <TopLink to={next || "/"}>{nextText || "Seuraava"}</TopLink>
+            ? <TopLink to={next}>{nextText || "Seuraava"}</TopLink>
             : <Flex />}
     </Container>
 );
 
 const ResultsLink = () => (
     <Container>
-        <TopLink to="/tulos">Takaisin</TopLink>
+        <TopLink to="tulos">Takaisin</TopLink>
     </Container>
 );
 

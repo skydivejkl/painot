@@ -101,8 +101,6 @@ export const Title = simple(Text, {
     padding: 20,
 });
 
-export const fromRoot = s => s ? "/" + s : null;
-
 export const withRouterProps = mapper => compose(
     mapProps(props => ({originalProps: props})),
     withRouter,
@@ -130,3 +128,8 @@ export var Link = ({router, to, ...props}) => {
 Link = withRouterProps(router => {
     return {router};
 })(Link);
+
+export const planeNamespace = (path, search) => router => ({
+    pathname: "/" + router.match.params.plane + "/" + path,
+    search,
+});
