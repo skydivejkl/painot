@@ -1,9 +1,8 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 
 import Touchable from "./Touchable";
-import {Sep, Button, addResultsFlag} from "./core";
+import {Sep, Button, addResultsFlag, Link} from "./core";
 
 const FlexTouchable = simple(Touchable, {
     flex: 1,

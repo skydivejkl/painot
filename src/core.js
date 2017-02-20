@@ -1,7 +1,8 @@
 import React from "react";
 import simple, {View} from "react-simple";
-import {withRouter} from "react-router-dom";
+import {withRouter, Link as RRLink} from "react-router-dom";
 import {compose, mapProps} from "recompose";
+import {isPlainObject} from "lodash/fp";
 
 export const Text = simple(View, {
     fontFamily: "helvetica",
@@ -116,3 +117,29 @@ export const withRouterProps = mapper => compose(
 export const addResultsFlag = withRouterProps(router => ({
     hasResultsFlag: router.location.search === "?results=1",
 }));
+
+export var Link = ({relativeTo, currentPathname, ...props}) => {
+    if (!relativeTo) {
+        return <RRLink {...props} />;
+    }
+
+    if (typeof relativeTo === "string") {
+        relativeTo = {pathname: relativeTo};
+    }
+
+    const {pathname, ...otherTo} = relativeTo;
+
+    const finalProps = {
+        ...props,
+        to: {
+            ...otherTo,
+            pathname: currentPathname + "/" + pathname,
+        },
+    };
+    console.log("rel", finalProps);
+
+    return <RRLink {...finalProps} />;
+};
+Link = withRouterProps(router => ({currentPathname: router.location.pathname}))(
+    Link,
+);

@@ -1,10 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 import {last, mapValues} from "lodash/fp";
 
-import {Text, Button, Scroll, Title, Sep, fromRoot} from "./core";
+import {Text, Button, Scroll, Title, Sep, fromRoot, Link} from "./core";
 import TopNav from "./TopNav";
 import calculate, {dataInputs} from "./calculate";
 
