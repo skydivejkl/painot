@@ -79,7 +79,7 @@ const ValueText2 = simple(ValueText, {
 const ValueLink = simple(Button.create(Link), {
     fontSize: 12,
     fontWeight: "bold",
-    padding: 5,
+    padding: 10,
     width: 170,
 });
 
@@ -91,9 +91,8 @@ const RestartLinkContainer = simple(View, {
     // backgroundColor: "red",
 });
 
-const RestartLink = simple(Button.create(Link), {
+const RestartLink = simple(ValueLink, {
     width: 140,
-    padding: 5,
 });
 
 export const Results = ({cargo, spare, total, gc, gcOk, mtow, cargoItems}) => (
@@ -142,7 +141,11 @@ export const Results = ({cargo, spare, total, gc, gcOk, mtow, cargoItems}) => (
                     <ValueLink
                         to={{pathname: "/" + item.name, search: "?results=1"}}
                     >
-                        {item.mass} kg / {item.massMoment.toFixed(1)} kgm
+                        {
+                            `${item.mass.toFixed(
+                                1,
+                            )} kg / ${item.massMoment.toFixed(1)} kgm`
+                        }
                     </ValueLink>
                 </Row>
             ))}
