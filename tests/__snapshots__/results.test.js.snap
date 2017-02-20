@@ -8,7 +8,7 @@ exports[`test render results 1`] = `
       onTouchEnd={[Function]}
       onTouchStart={[Function]}>
       <a
-        className="FlexLink___4 css-gox86g"
+        className="FlexLink___4 css-1295x6z"
         href="/jumper4"
         onClick={[Function]}>
         Edellinen
@@ -20,7 +20,7 @@ exports[`test render results 1`] = `
       className="Flex___6 css-1mobb16" />
   </div>
   <div
-    className="Scroll___7 css-1az1c6z">
+    className="Scroll___7 css-mu6700">
     <div
       className="Title___8 css-1lc423o">
       Tulokset
@@ -28,7 +28,7 @@ exports[`test render results 1`] = `
     <div
       className="RestartLinkContainer___9 css-185hg9n">
       <a
-        className="RestartLink___10 css-158ztom"
+        className="RestartLink___10 css-14mde5b"
         href="/"
         onClick={[Function]}>
         Alkuun
@@ -62,121 +62,133 @@ exports[`test render results 1`] = `
       className="Row___17 small___17 css-sntxt7">
       <div
         className="Label2___18 css-11hk22">
-        Vapaana
+        Peruspaino
       </div>
       <div
         className="ValueText2___19 css-1f14bc6">
+        838.98
+         kg
+      </div>
+    </div>
+    <div
+      className="Row___20 small___20 css-sntxt7">
+      <div
+        className="Label2___21 css-11hk22">
+        Vapaana
+      </div>
+      <div
+        className="ValueText2___22 css-1f14bc6">
         13.8
          kg
       </div>
     </div>
     <div
-      className="Row___20 css-16e6u4r">
+      className="Row___23 small___23 css-sntxt7">
       <div
-        className="Label___21 css-1ch40xb">
+        className="Label2___24 css-11hk22">
+        Perusmomentti
+      </div>
+      <div
+        className="ValueText2___25 css-1f14bc6">
+        782.87
+         kg
+      </div>
+    </div>
+    <div
+      className="Row___26 css-16e6u4r">
+      <div
+        className="Label___27 css-1ch40xb">
         Massakeskipiste
       </div>
       <div
-        className="ValueText___22 css-1ykq4wt">
+        className="ValueText___28 css-1ykq4wt">
         1.076
          m
       </div>
     </div>
     <div
-      className="Row___23 css-16e6u4r">
+      className="Row___29 small___29 css-sntxt7">
       <div
-        className="Label___24 css-1ch40xb">
-        Kuorma
-      </div>
-      <div
-        className="ValueText___25 css-1ykq4wt">
-        485.2
-         kg
-      </div>
-    </div>
-    <div
-      className="Row___26 small___26 css-sntxt7">
-      <div
-        className="Label2___27 css-11hk22">
+        className="Label2___30 css-11hk22">
         JET A
       </div>
       <a
-        className="ValueLink___28 css-mr0o0g"
+        className="ValueLink___31 css-x7k04s"
         href="/fuel?results=1"
         onClick={[Function]}>
         40.2 kg / 49.0 kgm
       </a>
     </div>
     <div
-      className="Row___29 small___29 css-sntxt7">
+      className="Row___32 small___32 css-sntxt7">
       <div
-        className="Label2___30 css-11hk22">
+        className="Label2___33 css-11hk22">
         pilotti
       </div>
       <a
-        className="ValueLink___31 css-mr0o0g"
+        className="ValueLink___34 css-x7k04s"
         href="/pilot?results=1"
         onClick={[Function]}>
         80.0 kg / 74.6 kgm
       </a>
     </div>
     <div
-      className="Row___32 small___32 css-sntxt7">
+      className="Row___35 small___35 css-sntxt7">
       <div
-        className="Label2___33 css-11hk22">
+        className="Label2___36 css-11hk22">
         \"mesun paikalla\"
       </div>
       <a
-        className="ValueLink___34 css-mr0o0g"
+        className="ValueLink___37 css-x7k04s"
         href="/jumper1?results=1"
         onClick={[Function]}>
         105.0 kg / 99.6 kgm
       </a>
     </div>
     <div
-      className="Row___35 small___35 css-sntxt7">
+      className="Row___38 small___38 css-sntxt7">
       <div
-        className="Label2___36 css-11hk22">
+        className="Label2___39 css-11hk22">
         ovella
       </div>
       <a
-        className="ValueLink___37 css-mr0o0g"
+        className="ValueLink___40 css-x7k04s"
         href="/jumper2?results=1"
         onClick={[Function]}>
         90.0 kg / 123.8 kgm
       </a>
     </div>
     <div
-      className="Row___38 small___38 css-sntxt7">
+      className="Row___41 small___41 css-sntxt7">
       <div
-        className="Label2___39 css-11hk22">
+        className="Label2___42 css-11hk22">
         pilotin penkin takana
       </div>
       <a
-        className="ValueLink___40 css-mr0o0g"
+        className="ValueLink___43 css-x7k04s"
         href="/jumper3?results=1"
         onClick={[Function]}>
         85.0 kg / 128.1 kgm
       </a>
     </div>
     <div
-      className="Row___41 small___41 css-sntxt7">
+      className="Row___44 small___44 css-sntxt7">
       <div
-        className="Label2___42 css-11hk22">
+        className="Label2___45 css-11hk22">
         perällä
       </div>
       <a
-        className="ValueLink___43 css-mr0o0g"
+        className="ValueLink___46 css-x7k04s"
         href="/jumper4?results=1"
         onClick={[Function]}>
         85.0 kg / 166.3 kgm
       </a>
     </div>
     <img
-      className="Img___44 css-5bhlr8"
+      className="Img___47 css-5bhlr8"
       src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png" />
     <a
-      className="Zoom___45 css-vpopo7"
+      className="Zoom___48 css-17g6ahy"
       href="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png">
       ZOOM
     </a>
