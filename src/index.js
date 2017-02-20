@@ -2,6 +2,9 @@ console.log("git date", GIT_COMMIT_DATE);
 console.log("git message", GIT_COMMIT_MESSAGE);
 console.log("git rev", GIT_COMMIT_REV);
 
+import initReactFastclick from "react-fastclick";
+initReactFastclick();
+
 import React from "react";
 import ReactDOM from "react-dom";
 import {HashRouter} from "react-router-dom";
