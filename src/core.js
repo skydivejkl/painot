@@ -118,28 +118,15 @@ export const addResultsFlag = withRouterProps(router => ({
     hasResultsFlag: router.location.search === "?results=1",
 }));
 
-export var Link = ({relativeTo, currentPathname, ...props}) => {
-    if (!relativeTo) {
-        return <RRLink {...props} />;
+export var Link = ({router, to, ...props}) => {
+    if (typeof to !== "function") {
+        return <RRLink to={to} {...props} />;
     }
 
-    if (typeof relativeTo === "string") {
-        relativeTo = {pathname: relativeTo};
-    }
+    to = to(router);
 
-    const {pathname, ...otherTo} = relativeTo;
-
-    const finalProps = {
-        ...props,
-        to: {
-            ...otherTo,
-            pathname: currentPathname + "/" + pathname,
-        },
-    };
-    console.log("rel", finalProps);
-
-    return <RRLink {...finalProps} />;
+    return <RRLink to={to} {...props} />;
 };
-Link = withRouterProps(router => ({currentPathname: router.location.pathname}))(
-    Link,
-);
+Link = withRouterProps(router => {
+    return {router};
+})(Link);
