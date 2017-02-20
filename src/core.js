@@ -1,6 +1,6 @@
 import React from "react";
 import simple, {View} from "react-simple";
-import {withRouter, Link as RRLink} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import {compose, mapProps} from "recompose";
 import {isPlainObject} from "lodash/fp";
 
@@ -116,20 +116,4 @@ export const addResultsFlag = withRouterProps(router => ({
     hasResultsFlag: router.location.search === "?results=1",
 }));
 
-export var Link = ({router, to, ...props}) => {
-    if (typeof to !== "function") {
-        return <RRLink to={to} {...props} />;
-    }
-
-    to = to(router);
-
-    return <RRLink to={to} {...props} />;
-};
-Link = withRouterProps(router => {
-    return {router};
-})(Link);
-
-export const planeNamespace = (path, search) => router => ({
-    pathname: "/" + router.match.params.plane + "/" + path,
-    search,
-});
+export {Link};

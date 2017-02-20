@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import simple, {View} from "react-simple";
-import {last, mapValues} from "lodash/fp";
+import {first, last, mapValues} from "lodash/fp";
 
 import {Text, Button, Scroll, Title, Sep, fromRoot, Link} from "./core";
 import TopNav from "./TopNav";
-import calculate, {dataInputs} from "./calculate";
+import {addResults, addCurrentPlane} from "./calculate";
 
 const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 
@@ -95,16 +95,16 @@ const RestartLink = simple(ValueLink, {
 });
 
 export const Results = (
-    {cargo, spare, total, gc, gcOk, mtow, cargoItems, plane, planeMoment},
+    {cargo, spare, total, gc, gcOk, mtow, cargoItems, planeMass, planeMoment},
 ) => (
     <Flex>
-        <TopNav back={last(dataInputs).name} />
+        <TopNav back={last(cargoItems).name} />
         <Scroll>
 
             <Title>Tulokset</Title>
 
             <RestartLinkContainer>
-                <RestartLink to="/">Alkuun</RestartLink>
+                <RestartLink to={first(cargoItems).name}>Alkuun</RestartLink>
             </RestartLinkContainer>
 
             <Row>
@@ -121,7 +121,7 @@ export const Results = (
 
             <Row small>
                 <Label2>Peruspaino</Label2>
-                <ValueText2>{plane} kg</ValueText2>
+                <ValueText2>{planeMass} kg</ValueText2>
             </Row>
 
             <Row small>
@@ -165,6 +165,4 @@ export const Results = (
     </Flex>
 );
 
-export default connect(state => calculate(mapObValuesToFloats(state.painot)))(
-    Results,
-);
+export default addResults(Results);

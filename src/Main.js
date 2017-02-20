@@ -3,8 +3,8 @@ import {Route, Redirect, Switch} from "react-router-dom";
 import simple, {View, css} from "react-simple";
 import {get, omit, pick} from "lodash/fp";
 import {compose, withHandlers, mapProps} from "recompose";
+import {addCurrentPlane} from "./calculate";
 
-import {dataInputs} from "./calculate";
 import TopNav from "./TopNav";
 import Results from "./Results";
 import InputConnect from "./InputConnect";
@@ -14,7 +14,6 @@ import {
     Input,
     Sep,
     Title,
-    fromRoot,
     addResultsFlag,
     withRouterProps,
 } from "./core";
@@ -54,16 +53,17 @@ const Description = simple(Text, {
     fontSize: 12,
 });
 
-var NumInput = props => (
+var NumInput = ({plane, ...props}) => (
     <InputConnect
         component={Input}
         type="number"
         pattern="[0-9]*"
         inputMode="numeric"
-        scope="painot"
+        scope={plane.name}
         {...props}
     />
 );
+NumInput = addCurrentPlane(NumInput);
 
 NumInput = compose(
     withRouterProps(pick("push")),
@@ -93,9 +93,9 @@ NumInput = compose(
     mapProps(omit(["nextNavigate", "backNavigate", "hasResultsFlag", "push"])),
 )(NumInput);
 
-const Form = ({back, next, nextText, title, name, description}) => (
+const Form = ({back, next = "tulos", title, name, description}) => (
     <Flex>
-        <TopNav back={back} nextText={nextText} next={next} />
+        <TopNav back={back} next={next} />
         <Scroll>
 
             <Title>{title}</Title>
@@ -117,17 +117,15 @@ const Form = ({back, next, nextText, title, name, description}) => (
     </Flex>
 );
 
-const Main = () => (
+var Main = ({plane}) => (
     <Container>
         <Wrap>
 
             <Switch>
 
-                {dataInputs.map((item, index, array) => {
+                {plane.items.map((item, index, array) => {
                     const next = item.next || get([index + 1, "name"], array);
                     const back = get([index - 1, "name"], array);
-                    console.log("back", back);
-                    console.log("next", next);
                     return (
                         <Route
                             key={item.name}
@@ -141,13 +139,17 @@ const Main = () => (
 
                 <Route path="/:plane/tulos" component={Results} />
 
-                <Route
-                    render={() => <Redirect to={"/" + dataInputs[0].name} />}
-                />
+                <Route render={() => <h1>ei löydy</h1>} />
+
+                {/*
+                <Route render={() => <Redirect to={"/" + items[0].name} />} />
+                */
+                }
 
             </Switch>
         </Wrap>
     </Container>
 );
+Main = addCurrentPlane(Main);
 
 export default Main;
