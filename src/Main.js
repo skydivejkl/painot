@@ -1,14 +1,23 @@
 import React from "react";
-import {Route, Redirect, withRouter} from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 import simple, {View, css} from "react-simple";
-import {get, omit} from "lodash/fp";
+import {get, omit, pick} from "lodash/fp";
 import {compose, withHandlers, mapProps} from "recompose";
 
 import {dataInputs} from "./calculate";
 import TopNav from "./TopNav";
 import Results from "./Results";
 import InputConnect from "./InputConnect";
-import {Scroll, Text, Input, Sep, Title, fromRoot} from "./core";
+import {
+    Scroll,
+    Text,
+    Input,
+    Sep,
+    Title,
+    fromRoot,
+    addResultsFlag,
+    withRouterProps,
+} from "./core";
 
 css.global("body, html", {
     padding: 0,
@@ -56,25 +65,20 @@ var NumInput = props => (
     />
 );
 
-const omitRouterProps = omit([
-    "nextNavigate",
-    "backNavigate",
-    "length",
-    "location",
-    "createHref",
-    "push",
-    "replace",
-    "go",
-    "goBack",
-    "goForward",
-    "block",
-    "listen",
-    "match",
-]);
 NumInput = compose(
-    withRouter,
+    withRouterProps(pick("push")),
+    addResultsFlag,
     withHandlers({
         onKeyDown: props => e => {
+            if (props.hasResultsFlag) {
+                if (e.key === "Enter" || e.key === "Escape") {
+                    e.preventDefault();
+                    props.push("/tulos");
+                }
+
+                return;
+            }
+
             if (e.key === "Enter" || e.key === "Tab") {
                 e.preventDefault();
                 props.push(props.nextNavigate);
@@ -86,7 +90,7 @@ NumInput = compose(
             }
         },
     }),
-    mapProps(omitRouterProps),
+    mapProps(omit(["nextNavigate", "backNavigate", "hasResultsFlag", "push"])),
 )(NumInput);
 
 const Form = ({back, next, nextText, title, name, description}) => (

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 
 import Touchable from "./Touchable";
-import {Text, Sep, Button} from "./core";
+import {Sep, Button, addResultsFlag} from "./core";
 
 const FlexTouchable = simple(Touchable, {
     flex: 1,
@@ -30,7 +30,7 @@ const Flex = simple(View, {
     flex: 1,
 });
 
-const TopNav = ({back, next, nextText}) => (
+const BackNext = ({back, next, nextText}) => (
     <Container>
         {back ? <TopLink to={back}>Edellinen</TopLink> : <Flex />}
         <Sep />
@@ -39,5 +39,16 @@ const TopNav = ({back, next, nextText}) => (
             : <Flex />}
     </Container>
 );
+
+const ResultsLink = () => (
+    <Container>
+        <TopLink to="/tulos">Takaisin</TopLink>
+    </Container>
+);
+
+var TopNav = ({hasResultsFlag, ...otherProps}) =>
+    hasResultsFlag ? <ResultsLink /> : <BackNext {...otherProps} />;
+
+TopNav = addResultsFlag(TopNav);
 
 export default TopNav;

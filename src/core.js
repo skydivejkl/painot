@@ -1,5 +1,7 @@
 import React from "react";
 import simple, {View} from "react-simple";
+import {withRouter} from "react-router-dom";
+import {compose, mapProps} from "recompose";
 
 export const Text = simple(View, {
     fontFamily: "helvetica",
@@ -94,3 +96,18 @@ export const Title = simple(Text, {
 });
 
 export const fromRoot = s => s ? "/" + s : null;
+
+export const withRouterProps = mapper => compose(
+    mapProps(props => ({originalProps: props})),
+    withRouter,
+    mapProps(({originalProps, ...router}) => {
+        return {
+            ...originalProps,
+            ...mapper(router),
+        };
+    }),
+);
+
+export const addResultsFlag = withRouterProps(router => ({
+    hasResultsFlag: router.location.search === "?results=1",
+}));
