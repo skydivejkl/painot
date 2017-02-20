@@ -74,3 +74,23 @@ export const Sep = simple(View, {
     width: 10,
     height: 10,
 });
+
+export const Scroll = simple(View, {
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+    overflowX: "auto",
+});
+
+export const Title = simple(Text, {
+    fontSize: 35,
+    height: 100,
+    overflow: "hidden",
+    textAlign: "center",
+    fontWeight: "bold",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+});
+
+export const fromRoot = s => s ? "/" + s : null;
