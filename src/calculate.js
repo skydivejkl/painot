@@ -1,17 +1,13 @@
+import {getOr} from "lodash/fp";
+
+const pass = val => val;
+
 const JET_A = 0.804; // JET A tiheys
 const MTOW = 1338; // CHQ suurin lentoonlähtöpaino (kg)
 
 // OH-CHQ punnitustodistuksesta 25.3.2015
 const PLANE = 838.98; // CHQ kuivapaino (kg)
 const PLANE_MOMENT = 782.87; // CHQ perusmomentti
-
-// Momenttikertoimet
-const FUEL_P = 1.22;
-const PILOT_P = 0.932;
-const JUMPER1_P = 0.949;
-const JUMPER2_P = 1.375;
-const JUMPER3_P = 1.507;
-const JUMPER4_P = 1.957;
 
 // Taulukon arvot
 // https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png
@@ -26,26 +22,34 @@ export const dataInputs = [
         name: "fuel",
         title: "JET A",
         description: "Tankattu JET A litroissa",
+        position: 1.22,
+        convert(value) {
+            return parseFloat(value, 10) * JET_A;
+        },
     },
     {
         name: "pilot",
         title: "pilotti",
         description: "Pilotin paino pelastusvarjoineen (kg)",
+        position: 0.932,
     },
     {
         name: "jumper1",
         title: '"mesun paikalla"',
         description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
+        position: 0.949,
     },
     {
         name: "jumper2",
         title: "ovella",
         description: "Oven vieressä istuva hyppääjä exit paino jolla on naama menosuuntaan (kg)",
+        position: 1.375,
     },
     {
         name: "jumper3",
         title: "pilotin penkin takana",
         description: "Pilotin penkin takana istuva hyppääjän exit paino (kg)",
+        position: 1.507,
     },
     {
         name: "jumper4",
@@ -53,6 +57,7 @@ export const dataInputs = [
         next: "/tulos",
         nextText: "Tulokset",
         description: "Ihan perällä istuva hyppääjän exit paino (kg)",
+        position: 1.957,
     },
 ];
 
@@ -80,36 +85,40 @@ export function isCGinSMALimits(mass, gc) {
     throw new Error("programmer error :)");
 }
 
-export default function calculate(
-    {
-        fuel = 0, // tankattu JET A litroissa
-        pilot = 0, // kg
-        jumper1 = 0, // kg
-        jumper2 = 0, // kg
-        jumper3 = 0, // kg
-        jumper4 = 0, // kg
-    },
-) {
-    var cargo = fuel * JET_A + pilot + jumper1 + jumper2 + jumper3 + jumper4;
+export default function calculate(data) {
+    const cargoItems = dataInputs.map(input => {
+        const convert = input.convert || pass;
 
-    var cargoMoment = fuel * JET_A * FUEL_P +
-        pilot * PILOT_P +
-        jumper1 * JUMPER1_P +
-        jumper2 * JUMPER2_P +
-        jumper3 * JUMPER3_P +
-        jumper4 * JUMPER4_P;
+        const mass = convert(getOr(0, input.name, data));
+        const massMoment = mass * (input.position || 1);
+
+        return {
+            name: input.name,
+            position: input.position,
+            description: input.description,
+            mass,
+            massMoment,
+        };
+    });
+
+    const cargo = cargoItems.reduce((sum, item) => sum + item.mass, 0);
+    const cargoMoment = cargoItems.reduce(
+        (sum, item) => sum + item.massMoment,
+        0,
+    );
 
     // center of gravity
-    var gc = (PLANE_MOMENT + cargoMoment) / (PLANE + cargo);
+    const gc = (PLANE_MOMENT + cargoMoment) / (PLANE + cargo);
 
-    var total = PLANE + cargo;
+    const total = PLANE + cargo;
 
     return {
-        cargo: cargo,
-        total: total,
+        cargoItems,
+        cargo,
+        total,
         spare: MTOW - (PLANE + cargo),
         mtow: MTOW,
-        gc: gc,
+        gc,
         gcOk: isCGinSMALimits(total, gc),
     };
 }
