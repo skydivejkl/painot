@@ -56,6 +56,7 @@ class AutoSelect extends React.Component {
 
 export const Button = simple(Text.create("button"), {
     backgroundColor: "#DDD",
+    borderRadius: 0,
     color: "black",
     fontSize: 20,
     alignItems: "center",
@@ -64,6 +65,8 @@ export const Button = simple(Text.create("button"), {
 });
 
 export const Input = simple(Text.create(AutoSelect), {
+    boxShadow: "inset 0px 0px 16px rgba(0, 0, 0, 0.10)",
+    borderRadius: 0,
     backgroundColor: "#DDD",
     padding: 10,
     textAlign: "center",
