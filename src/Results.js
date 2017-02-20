@@ -95,7 +95,9 @@ const RestartLink = simple(ValueLink, {
     width: 140,
 });
 
-export const Results = ({cargo, spare, total, gc, gcOk, mtow, cargoItems}) => (
+export const Results = (
+    {cargo, spare, total, gc, gcOk, mtow, cargoItems, plane, planeMoment},
+) => (
     <Flex>
         <TopNav back={fromRoot(last(dataInputs).name)} />
         <Scroll>
@@ -119,20 +121,23 @@ export const Results = ({cargo, spare, total, gc, gcOk, mtow, cargoItems}) => (
             </Row>
 
             <Row small>
+                <Label2>Peruspaino</Label2>
+                <ValueText2>{plane} kg</ValueText2>
+            </Row>
+
+            <Row small>
                 <Label2>Vapaana</Label2>
                 <ValueText2 bad={spare < 0}>{spare.toFixed(1)} kg</ValueText2>
+            </Row>
+
+            <Row small>
+                <Label2>Perusmomentti</Label2>
+                <ValueText2>{planeMoment} kg</ValueText2>
             </Row>
 
             <Row>
                 <Label>Massakeskipiste</Label>
                 <ValueText bad={!gcOk}>{gc.toFixed(3)} m</ValueText>
-            </Row>
-
-            <Row>
-                <Label>Kuorma</Label>
-                <ValueText bad={total > mtow}>
-                    {cargo.toFixed(1)} kg
-                </ValueText>
             </Row>
 
             {cargoItems.map(item => (

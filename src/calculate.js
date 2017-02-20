@@ -118,6 +118,8 @@ export default function calculate(data) {
         cargoItems,
         cargo,
         total,
+        plane: PLANE,
+        planeMoment: PLANE_MOMENT,
         spare: MTOW - (PLANE + cargo),
         mtow: MTOW,
         gc,
