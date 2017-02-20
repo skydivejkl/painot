@@ -1,6 +1,7 @@
 export PATH := node_modules/.bin:$(PATH)
 export SHELL := /bin/bash # Required for OS X for some reason
 bundle = dist/bundle.js
+rev = $(shell git rev-parse HEAD)
 
 
 all: dist-changes-hide yarn js
@@ -23,13 +24,15 @@ dist-changes-hide:
 dist-changes-show:
 	git update-index --no-assume-unchanged $(bundle)
 
+update-cache-key:
+	sed  -i -re 's/(.*cache=)([a-z0-9]+)(.*)/\1$(rev)\3/' index.html
+
 assert-clean-git: dist-changes-show
 	git checkout $(bundle)
 	@test -z "$(shell git status . --porcelain)" || (echo "Dirty git tree: " && git status . --porcelain ; exit 1)
 
-commit-bundle: assert-clean-git js
-	$(MAKE) dist-changes-show
-	git add $(bundle)
+commit-bundle: assert-clean-git js dist-changes-show update-cache-key
+	git add $(bundle) index.html
 	git status . --porcelain
 	git commit -m "Commit bundle"
 	$(MAKE) dist-changes-hide
