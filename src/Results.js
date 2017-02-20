@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import simple, {View} from "react-simple";
 import {last, mapValues} from "lodash/fp";
 
@@ -9,11 +10,21 @@ import calculate, {dataInputs} from "./calculate";
 
 const mapObValuesToFloats = mapValues(val => parseFloat(val, 10));
 
-const Row = simple(View, {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-});
+const Row = simple(
+    View,
+    {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 0,
+        marginBottom: 20,
+    },
+    {
+        small: {
+            marginBottom: 10,
+        },
+    },
+);
 
 const Flex = simple(View, {
     flex: 1,
@@ -33,16 +44,17 @@ const Zoom = simple(Button.create("a"), {
     alignSelf: "center",
 });
 
-const TotalText = simple(Text, {
-    width: 150,
+const Label = simple(Text, {
+    width: 160,
     fontSize: 19,
 });
 
-const ResultText = simple(
+const ValueText = simple(
     Text,
     {
-        fontSize: 25,
-        width: 150,
+        // backgroundColor: "red",
+        fontSize: 20,
+        width: 170,
         fontWeight: "bold",
         color: "#3cd03c",
     },
@@ -53,46 +65,87 @@ const ResultText = simple(
     },
 );
 
-export const Results = ({cargo, spare, total, gc, gcOk, mtow}) => (
+const Label2 = simple(Label, {
+    fontSize: 12,
+    padding: "auto",
+    paddingLeft: 20,
+});
+
+const ValueText2 = simple(ValueText, {
+    color: "black",
+    fontSize: 15,
+});
+
+const ValueLink = simple(Button.create(Link), {
+    fontSize: 12,
+    fontWeight: "bold",
+    padding: 5,
+    width: 170,
+});
+
+const RestartLinkContainer = simple(View, {
+    alignItems: "center",
+    padding: "auto",
+    paddingTop: 0,
+    paddingBottom: 20,
+    // backgroundColor: "red",
+});
+
+const RestartLink = simple(Button.create(Link), {
+    width: 140,
+    padding: 5,
+});
+
+export const Results = ({cargo, spare, total, gc, gcOk, mtow, cargoItems}) => (
     <Flex>
-        <TopNav
-            back={fromRoot(last(dataInputs).name)}
-            next="/"
-            nextText="Alkuun"
-        />
+        <TopNav back={fromRoot(last(dataInputs).name)} />
         <Scroll>
 
             <Title>Tulokset</Title>
 
-            <Row>
-                <TotalText>Kuorma</TotalText>
-                <ResultText bad={total > mtow}>
-                    {cargo.toFixed(2)} kg
-                </ResultText>
-            </Row>
-
-            <Sep />
+            <RestartLinkContainer>
+                <RestartLink to="/">Alkuun</RestartLink>
+            </RestartLinkContainer>
 
             <Row>
-                <TotalText>Kokonaispaino</TotalText>
-                <ResultText bad={mtow < total}>
-                    {total.toFixed(2)} kg
-                </ResultText>
+                <Label>Kokonaispaino</Label>
+                <ValueText bad={mtow < total}>
+                    {total.toFixed(1)} kg
+                </ValueText>
             </Row>
 
-            <Sep />
+            <Row small>
+                <Label2>MTOW</Label2>
+                <ValueText2>{mtow} kg</ValueText2>
+            </Row>
+
+            <Row small>
+                <Label2>Vapaana</Label2>
+                <ValueText2 bad={spare < 0}>{spare.toFixed(1)} kg</ValueText2>
+            </Row>
 
             <Row>
-                <TotalText>Vapaana</TotalText>
-                <ResultText bad={spare < 0}>{spare.toFixed(2)} kg</ResultText>
+                <Label>Massakeskipiste</Label>
+                <ValueText bad={!gcOk}>{gc.toFixed(3)} m</ValueText>
             </Row>
-
-            <Sep />
 
             <Row>
-                <TotalText>Massakeskipiste</TotalText>
-                <ResultText bad={!gcOk}>{gc.toFixed(3)} m</ResultText>
+                <Label>Kuorma</Label>
+                <ValueText bad={total > mtow}>
+                    {cargo.toFixed(1)} kg
+                </ValueText>
             </Row>
+
+            {cargoItems.map(item => (
+                <Row key={item.name} small>
+                    <Label2>{item.title}</Label2>
+                    <ValueLink
+                        to={{pathname: "/" + item.name, search: "?results=1"}}
+                    >
+                        {item.mass} kg / {item.massMoment.toFixed(1)} kgm
+                    </ValueLink>
+                </Row>
+            ))}
 
             <Img
                 src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png"

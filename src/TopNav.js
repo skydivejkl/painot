@@ -34,7 +34,9 @@ const TopNav = ({back, next, nextText}) => (
     <Container>
         {back ? <TopLink to={back}>Edellinen</TopLink> : <Flex />}
         <Sep />
-        <TopLink to={next || "/"}>{nextText || "Seuraava"}</TopLink>
+        {next
+            ? <TopLink to={next || "/"}>{nextText || "Seuraava"}</TopLink>
+            : <Flex />}
     </Container>
 );
 

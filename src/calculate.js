@@ -94,6 +94,7 @@ export default function calculate(data) {
 
         return {
             name: input.name,
+            title: input.title,
             position: input.position,
             description: input.description,
             mass,
