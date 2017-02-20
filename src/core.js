@@ -24,8 +24,18 @@ class AutoSelect extends React.Component {
             return;
         }
 
+        this.input.focus();
+
         if (typeof this.input.select === "function") {
             this.input.select();
+        }
+
+        if (typeof this.input.setSelectionRange === "function") {
+            try {
+                this.input.setSelectionRange(0, 999);
+            } catch (error) {
+                // console.error(error);
+            }
         }
     }
 
