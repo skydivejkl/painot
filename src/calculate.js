@@ -1,7 +1,9 @@
 const JET_A = 0.804; // JET A tiheys
 const MTOW = 1338; // CHQ suurin lentoonlähtöpaino (kg)
-const PLANE = 839; // CHQ kuivapaino (kg)
-const PLANE_MOMENT = 800; // CHQ perusmomentti (EI TARKASTETTU punnitustodistuksesta)
+
+// OH-CHQ punnitustodistuksesta 25.3.2015
+const PLANE = 838.98; // CHQ kuivapaino (kg)
+const PLANE_MOMENT = 782.87; // CHQ perusmomentti
 
 // Momenttikertoimet
 const FUEL_P = 1.22;
