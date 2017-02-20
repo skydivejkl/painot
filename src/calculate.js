@@ -82,14 +82,15 @@ export function isCGinSMALimits(mass, gc) {
         return gc > MIN_GC;
     }
 
-    throw new Error("programmer error :)");
+    console.error("Failed to calculate GC limit for", mass, gc);
+    return false;
 }
 
 export default function calculate(data) {
     const cargoItems = dataInputs.map(input => {
         const convert = input.convert || pass;
 
-        const mass = convert(getOr(0, input.name, data));
+        const mass = convert(getOr(0, input.name, data)) || 0;
         const massMoment = mass * (input.position || 1);
 
         return {
