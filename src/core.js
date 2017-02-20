@@ -82,6 +82,8 @@ export const Scroll = simple(View, {
     paddingRight: 20,
     flex: 1,
     overflowX: "auto",
+    overflowScrolling: "touch",
+    WebkitOverflowScrolling: "touch",
 });
 
 export const Title = simple(Text, {
