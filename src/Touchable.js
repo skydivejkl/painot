@@ -2,23 +2,26 @@ import React from "react";
 import simple, {css, View} from "react-simple";
 
 function addTimers() {
-    return Component => React.createClass({
-        componentWillMount() {
-            this.timeouts = [];
-        },
+    return Component =>
+        React.createClass({
+            componentWillMount() {
+                this.timeouts = [];
+            },
 
-        setTimeout(cb, t) {
-            this.timeouts.push(setTimeout(cb, t));
-        },
+            setTimeout(cb, t) {
+                this.timeouts.push(setTimeout(cb, t));
+            },
 
-        componentWillUnmount() {
-            this.timeouts.forEach(clearTimeout);
-        },
+            componentWillUnmount() {
+                this.timeouts.forEach(clearTimeout);
+            },
 
-        render() {
-            return <Component {...this.props} setTimeout={this.setTimeout} />;
-        },
-    });
+            render() {
+                return (
+                    <Component {...this.props} setTimeout={this.setTimeout} />
+                );
+            },
+        });
 }
 
 const animation = css.keyframes({

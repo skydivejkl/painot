@@ -100,18 +100,19 @@ export const Title = simple(Text, {
     padding: 20,
 });
 
-export const fromRoot = s => s ? "/" + s : null;
+export const fromRoot = s => (s ? "/" + s : null);
 
-export const withRouterProps = mapper => compose(
-    mapProps(props => ({originalProps: props})),
-    withRouter,
-    mapProps(({originalProps, ...router}) => {
-        return {
-            ...originalProps,
-            ...mapper(router),
-        };
-    }),
-);
+export const withRouterProps = mapper =>
+    compose(
+        mapProps(props => ({originalProps: props})),
+        withRouter,
+        mapProps(({originalProps, ...router}) => {
+            return {
+                ...originalProps,
+                ...mapper(router),
+            };
+        }),
+    );
 
 export const addResultsFlag = withRouterProps(router => ({
     hasResultsFlag: router.location.search === "?results=1",

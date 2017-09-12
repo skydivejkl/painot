@@ -95,13 +95,20 @@ const RestartLink = simple(ValueLink, {
     width: 140,
 });
 
-export const Results = (
-    {cargo, spare, total, gc, gcOk, mtow, cargoItems, plane, planeMoment},
-) => (
+export const Results = ({
+    cargo,
+    spare,
+    total,
+    gc,
+    gcOk,
+    mtow,
+    cargoItems,
+    plane,
+    planeMoment,
+}) => (
     <Flex>
         <TopNav back={fromRoot(last(dataInputs).name)} />
         <Scroll>
-
             <Title>Tulokset</Title>
 
             <RestartLinkContainer>
@@ -110,9 +117,7 @@ export const Results = (
 
             <Row>
                 <Label>Kokonaispaino</Label>
-                <ValueText bad={mtow < total}>
-                    {total.toFixed(1)} kg
-                </ValueText>
+                <ValueText bad={mtow < total}>{total.toFixed(1)} kg</ValueText>
             </Row>
 
             <Row small>
@@ -146,22 +151,16 @@ export const Results = (
                     <ValueLink
                         to={{pathname: "/" + item.name, search: "?results=1"}}
                     >
-                        {
-                            `${item.mass.toFixed(
-                                1,
-                            )} kg / ${item.massMoment.toFixed(1)} kgm`
-                        }
+                        {`${item.mass.toFixed(
+                            1,
+                        )} kg / ${item.massMoment.toFixed(1)} kgm`}
                     </ValueLink>
                 </Row>
             ))}
 
-            <Img
-                src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png"
-            />
+            <Img src="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png" />
 
-            <Zoom
-                href="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png"
-            >
+            <Zoom href="https://raw.githubusercontent.com/skydivejkl/painot/master/img/sma-gc-limits.png">
                 ZOOM
             </Zoom>
         </Scroll>

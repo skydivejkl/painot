@@ -13,17 +13,19 @@ InputConnect = connectLean({
     mapState(state, props) {
         var value = state[props.name] || "";
 
-        value = typeof props.deserialize === "function"
-            ? props.deserialize(value)
-            : value;
+        value =
+            typeof props.deserialize === "function"
+                ? props.deserialize(value)
+                : value;
 
         return {value};
     },
 
     onChange(e) {
-        const value = typeof this.props.serialize === "function"
-            ? this.props.serialize(e)
-            : e.target.value;
+        const value =
+            typeof this.props.serialize === "function"
+                ? this.props.serialize(e)
+                : e.target.value;
 
         this.setState({
             [this.props.name]: value,
@@ -33,7 +35,10 @@ InputConnect = connectLean({
 
 const defaultValidate = v => String(v || "").trim() !== "";
 
-export const createValidator = (scope, keys, validate = defaultValidate) =>
-    state => keys.every(key => validate(get([scope, key], state)));
+export const createValidator = (
+    scope,
+    keys,
+    validate = defaultValidate,
+) => state => keys.every(key => validate(get([scope, key], state)));
 
 export default InputConnect;

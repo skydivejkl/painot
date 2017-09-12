@@ -97,7 +97,6 @@ const Form = ({back, next, nextText, title, name, description}) => (
     <Flex>
         <TopNav back={back} nextText={nextText} next={next} />
         <Scroll>
-
             <Title>{title}</Title>
 
             <NumInput
@@ -110,9 +109,7 @@ const Form = ({back, next, nextText, title, name, description}) => (
 
             <Sep />
 
-            <Description>
-                {description}
-            </Description>
+            <Description>{description}</Description>
         </Scroll>
     </Flex>
 );
@@ -120,7 +117,6 @@ const Form = ({back, next, nextText, title, name, description}) => (
 const Main = () => (
     <Container>
         <Wrap>
-
             <Route
                 exact
                 path="/"
@@ -128,8 +124,8 @@ const Main = () => (
             />
 
             {dataInputs.map((item, index, array) => {
-                const next = item.next ||
-                    fromRoot(get([index + 1, "name"], array));
+                const next =
+                    item.next || fromRoot(get([index + 1, "name"], array));
                 const back = fromRoot(get([index - 1, "name"], array));
                 return (
                     <Route

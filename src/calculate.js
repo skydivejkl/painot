@@ -36,13 +36,15 @@ export const dataInputs = [
     {
         name: "jumper1",
         title: '"mesun paikalla"',
-        description: 'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
+        description:
+            'ns. "mesun paikalla" istuvan hyppääjän exit paino jolla on selkä menosuuntaan. (kg)',
         position: 0.949,
     },
     {
         name: "jumper2",
         title: "ovella",
-        description: "Oven vieressä istuva hyppääjä exit paino jolla on naama menosuuntaan (kg)",
+        description:
+            "Oven vieressä istuva hyppääjä exit paino jolla on naama menosuuntaan (kg)",
         position: 1.375,
     },
     {
@@ -73,8 +75,8 @@ export function isCGinSMALimits(mass, gc) {
     }
 
     if (mass > SLOPE_START && mass <= MAX_MASS) {
-        const bottomLimit = MIN_GC +
-            SLOPE * (mass - SLOPE_START) / (MAX_MASS - SLOPE_START);
+        const bottomLimit =
+            MIN_GC + SLOPE * (mass - SLOPE_START) / (MAX_MASS - SLOPE_START);
         return gc > bottomLimit;
     }
 
