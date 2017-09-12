@@ -9,8 +9,12 @@ all: dist-changes-hide yarn js
 yarn:
 	yarn
 
+
 js:
 	NODE_ENV=production webpack -p --progress
+
+service-worker:
+	sw-precache --config sw-precache-config.js
 
 server:
 	python -m SimpleHTTPServer 8080
@@ -31,7 +35,7 @@ assert-clean-git: dist-changes-show
 	git checkout $(bundle)
 	@test -z "$(shell git status . --porcelain)" || (echo "Dirty git tree: " && git status . --porcelain ; exit 1)
 
-commit-bundle: assert-clean-git js dist-changes-show update-cache-key
+commit-bundle: assert-clean-git js dist-changes-show update-cache-key service-worker
 	git add $(bundle) index.html
 	git status . --porcelain
 	git commit -m "Commit bundle"
