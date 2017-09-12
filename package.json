@@ -19,7 +19,7 @@
     "jest": "^18.1.0",
     "lean-redux": "^3.1.0",
     "lodash": "^4.17.4",
-    "prettier": "^0.18.0",
+    "prettier": "^1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-fastclick": "^3.0.1",
