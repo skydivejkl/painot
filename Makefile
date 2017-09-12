@@ -1,6 +1,6 @@
 export PATH := node_modules/.bin:$(PATH)
 export SHELL := /bin/bash # Required for OS X for some reason
-bundle = dist/bundle.js
+bundle = dist/bundle.js service-worker.js
 rev = $(shell git rev-parse HEAD)
 
 
